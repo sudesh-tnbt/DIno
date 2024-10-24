@@ -32,6 +32,7 @@ variables = [py.image.load(os.path.join("Assets/Bird", "Bird1.png")),
              py.image.load(os.path.join("Assets/Other", "Reset.png")),
              py.image.load(os.path.join("Assets/Other", "Track.png"))]
 
+
 class Dinosaur:
     x = 80
     y = 310
@@ -48,8 +49,8 @@ class Dinosaur:
         self.step_index = 0
         self.image = self.run_img[0]
         self.dino_rect = self.image.get_rect()
-        self.dino_rect.x = self.x
-        self.dino_rect.y = self.y
+        self.dino_x = self.x
+        self.dino_y = self.y
 
     def update(self, userInput):
         if self.dino_duck:
@@ -75,6 +76,21 @@ class Dinosaur:
             self.dino_jump = False
             self.dino_duck = False
 
+    def run(self):
+        self.image = self.run_img[self.step_index // 5]
+        self.dino_rect = self.image.get_rect()
+        self.dino_x = self.x
+        self.dino_y = self.y
+        self.step_index += 1
+
+    def duck(self):
+        pass
+
+    def jump(self):
+        pass
+
+    def draw(self, screen):
+        screen.blit(self.image, (self.dino_x, self.dino_y))
 
 
 def main():
@@ -92,3 +108,8 @@ def main():
 
         player.draw(screen)
         player.update(prompt)
+
+    py.quit()
+
+
+main()
