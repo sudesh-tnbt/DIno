@@ -51,6 +51,31 @@ class Dinosaur:
         self.dino_rect.x = self.x
         self.dino_rect.y = self.y
 
+    def update(self, userInput):
+        if self.dino_duck:
+            self.duck()
+        if self.dino_run:
+            self.run()
+        if self.dino_jump:
+            self.jump()
+
+        if self.step_index >= 10:
+            self.step_index = 0
+
+        if userInput[py.KEYUP] and not self.dino_jump:
+            self.dino_duck = False
+            self.dino_run = False
+            self.dino_jump = True
+        elif userInput[py.KEYDOWN] and not self.dino_duck:
+            self.dino_duck = True
+            self.dino_run = False
+            self.dino_jump = False
+        elif not (self.dino_jump or userInput[py.KEYDOWN]):
+            self.dino_run = True
+            self.dino_jump = False
+            self.dino_duck = False
+
+
 
 def main():
     run = True
